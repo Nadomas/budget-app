@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 
 
 export default function AppLayout({ children }: { children: ReactNode }) {
@@ -39,15 +39,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return hasSession ? (
     <div className="min-h-dvh">
       <nav className="sticky top-0 bg-white/80 backdrop-blur border-b">
-        <div className="container mx-auto flex gap-4 p-3">
-          <a href="/" className="px-3 py-2 rounded-lg hover:bg-gray-100">Мой бюджет</a>
+        <div className="container mx-auto flex gap-2 p-3">
+          <a href="/" className="px-3 py-2 rounded-lg hover:bg-gray-100">Главная</a>
+          <a href="/accounts" className="px-3 py-2 rounded-lg hover:bg-gray-100">Счета</a>
+          <a href="/operations" className="px-3 py-2 rounded-lg hover:bg-gray-100">Операции</a>
+          <a href="/add-operation" className="px-3 py-2 rounded-lg hover:bg-gray-100">Добавить операцию</a>
           <a
             href="/login"
             className="ml-auto px-3 py-2 rounded-lg hover:bg-gray-100"
-            onClick={async (e) => {
-              e.preventDefault();
-              await supabase.auth.signOut();
-            }}
+            onClick={async (e) => { e.preventDefault(); const { supabase } = await import("../../lib/supabaseClient"); await supabase.auth.signOut(); }}
           >
             Выйти
           </a>
